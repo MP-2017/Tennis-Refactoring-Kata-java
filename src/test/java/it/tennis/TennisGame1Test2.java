@@ -1,6 +1,9 @@
+package it.tennis;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import it.tennis.TennisGame1;
 
 public class TennisGame1Test2 {
 
