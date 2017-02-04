@@ -54,21 +54,10 @@ public class TennisGame1 implements TennisGame {
     
     public String getScore() {
         String textScoreDescription = "";
-        if (score1 == score2) {
-            switch (score1) {
-            case LOVE:
-                textScoreDescription = "Love-All";
-                break;
-            case FIFTEEEN:
-                textScoreDescription = "Fifteen-All";
-                break;
-            case THIRTY:
-                textScoreDescription = "Thirty-All";
-                break;
-            default:
-                textScoreDescription = "Deuce";
-                break;
-            }
+        if (score1 == score2 && score1 == Score.DEUCE) {
+            textScoreDescription = "Deuce";
+        } else if (score1 == score2) {
+            textScoreDescription = getScoreLabel(score1) + "-All";
         } else if (score1 == Score.ADVANTAGE) {
             textScoreDescription = "Advantage " + player1;
         } else if (score2 == Score.ADVANTAGE) {
