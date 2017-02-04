@@ -2,7 +2,7 @@
 public class TennisGame1 implements TennisGame {
 
     private static enum Score {
-        LOVE, FIFTEEEN, THIRTY, FORTY, DEUCE, ADVANTAGE, WON;
+        LOVE, FIFTEEEN, THIRTY, FORTY, DEUCE, ADVANTAGE, WON
     }
     
     private Score score1 = Score.LOVE;
@@ -11,13 +11,22 @@ public class TennisGame1 implements TennisGame {
     private final String player2;
 
     public TennisGame1(String player1, String player2) {
+        raiseExceptionForInvalidPlayers(player1, player2);
         this.player1 = player1;
         this.player2 = player2;
     }
 
+    private void raiseExceptionForInvalidPlayers(String player1, String player2) {
+        if ( player1 == null || player2 == null ) {
+            throw new IllegalArgumentException("Invalid player: null");
+        } else if ( player1.equals(player2) ) {
+            throw new IllegalArgumentException("Identical players not allowed: " + player1 + " - " + player2);
+        }
+    }
+
     public void wonPoint(String pointPlayer) {
-        raiseExceptionForInvalidPlayer(pointPlayer);
-        raiseExceptionForGameOver();
+        raiseExceptionIfPlayerIsNotPlaying(pointPlayer);
+        raiseExceptionIfGameIsOver();
 
         if (player1.equals(pointPlayer)) {
             score1 = incrementScore(score1);
@@ -54,13 +63,13 @@ public class TennisGame1 implements TennisGame {
         return incrementedScore;
     }
     
-    private void raiseExceptionForInvalidPlayer(String player) {
+    private void raiseExceptionIfPlayerIsNotPlaying(String player) {
         if ( !player1.equals(player) && !player2.equals(player) ) {
             throw new IllegalArgumentException("Invalid player: " + player);
         }
     }
     
-    private void raiseExceptionForGameOver() {
+    private void raiseExceptionIfGameIsOver() {
         if ( score1 == Score.WON || score2 == Score.WON ) {
             throw new IllegalStateException("Game over");
         }
