@@ -3,7 +3,6 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -12,11 +11,15 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class TennisTest {
 
-    private int player1Score;
-    private int player2Score;
-    private String expectedScore;
+    private final String player1Name;
+    private final String player2Name;
+    private final int player1Score;
+    private final int player2Score;
+    private final String expectedScore;
 
-    public TennisTest(int player1Score, int player2Score, String expectedScore) {
+    public TennisTest(String player1Name, int player1Score, String player2Name, int player2Score, String expectedScore) {
+        this.player1Name = player1Name;
+        this.player2Name = player2Name;
         this.player1Score = player1Score;
         this.player2Score = player2Score;
         this.expectedScore = expectedScore;
@@ -25,44 +28,44 @@ public class TennisTest {
     @Parameters
     public static Collection<Object[]> getAllScores() {
         return Arrays.asList(new Object[][] {
-                { 0, 0, "Love-All" },
-                { 1, 1, "Fifteen-All" },
-                { 2, 2, "Thirty-All"},
-                { 3, 3, "Deuce"},
-                { 4, 4, "Deuce"},
+                { "Tom", 0, "Jerry", 0, "Love-All"},
+                { "Tom", 1, "Jerry", 1, "Fifteen-All"},
+                { "Tom", 2, "Jerry", 2, "Thirty-All"},
+                { "Tom", 3, "Jerry", 3, "Deuce"},
+                { "Tom", 4, "Jerry", 4, "Deuce"},
                 
-                { 1, 0, "Fifteen-Love"},
-                { 0, 1, "Love-Fifteen"},
-                { 2, 0, "Thirty-Love"},
-                { 0, 2, "Love-Thirty"},
-                { 3, 0, "Forty-Love"},
-                { 0, 3, "Love-Forty"},
-                { 4, 0, "Win for player1"},
-                { 0, 4, "Win for player2"},
+                { "Cip", 1, "Ciop", 0, "Fifteen-Love"},
+                { "Cip", 0, "Ciop", 1, "Love-Fifteen"},
+                { "Cip", 2, "Ciop", 0, "Thirty-Love"},
+                { "Cip", 0, "Ciop", 2, "Love-Thirty"},
+                { "Cip", 3, "Ciop", 0, "Forty-Love"},
+                { "Cip", 0, "Ciop", 3, "Love-Forty"},
+                { "Cip", 4, "Ciop", 0, "Win for Cip"},
+                { "Cip", 0, "Ciop", 4, "Win for Ciop"},
                 
-                { 2, 1, "Thirty-Fifteen"},
-                { 1, 2, "Fifteen-Thirty"},
-                { 3, 1, "Forty-Fifteen"},
-                { 1, 3, "Fifteen-Forty"},
-                { 4, 1, "Win for player1"},
-                { 1, 4, "Win for player2"},
+                { "Jerry", 2, "Tom", 1, "Thirty-Fifteen"},
+                { "Jerry", 1, "Tom", 2, "Fifteen-Thirty"},
+                { "Jerry", 3, "Tom", 1, "Forty-Fifteen"},
+                { "Jerry", 1, "Tom", 3, "Fifteen-Forty"},
+                { "Jerry", 4, "Tom", 1, "Win for Jerry"},
+                { "Jerry", 1, "Tom", 4, "Win for Tom"},
 
-                { 3, 2, "Forty-Thirty"},
-                { 2, 3, "Thirty-Forty"},
-                { 4, 2, "Win for player1"},
-                { 2, 4, "Win for player2"},
+                { "Ciop", 3, "Cip", 2, "Forty-Thirty"},
+                { "Ciop", 2, "Cip", 3, "Thirty-Forty"},
+                { "Ciop", 4, "Cip", 2, "Win for Cip"},
+                { "Ciop", 2, "Cip", 4, "Win for Ciop"},
                 
-                { 4, 3, "Advantage player1"},
-                { 3, 4, "Advantage player2"},
-                { 5, 4, "Advantage player1"},
-                { 4, 5, "Advantage player2"},
-                { 15, 14, "Advantage player1"},
-                { 14, 15, "Advantage player2"},
+                { "Tom", 4, "Jerry", 3, "Advantage Tom"},
+                { "Tom", 3, "Jerry", 4, "Advantage Jerry"},
+                { "Tom", 5, "Jerry", 4, "Advantage Tom"},
+                { "Tom", 4, "Jerry", 5, "Advantage Jerry"},
+                { "Tom", 15, "Jerry", 14, "Advantage Tom"},
+                { "Tom", 14, "Jerry", 15, "Advantage Jerry"},
 
-                { 6, 4, "Win for player1"},
-                { 4, 6, "Win for player2"},
-                { 16, 14, "Win for player1"},
-                { 14, 16, "Win for player2"},
+                { "Cip", 6, "Ciop", 4, "Win for Cip"},
+                { "Cip", 4, "Ciop", 6, "Win for Ciop"},
+                { "Cip", 16, "Ciop", 14, "Win for Cip"},
+                { "Cip", 14, "Ciop", 16, "Win for Ciop"},
         });
     }
 
@@ -70,28 +73,28 @@ public class TennisTest {
         int highestScore = Math.max(this.player1Score, this.player2Score);
         for (int i = 0; i < highestScore; i++) {
             if (i < this.player1Score)
-                game.wonPoint("player1");
+                game.wonPoint(this.player1Name);
             if (i < this.player2Score)
-                game.wonPoint("player2");
+                game.wonPoint(this.player2Name);
         }
         assertEquals(this.expectedScore, game.getScore());
     }
 
     @Test
     public void checkAllScoresTennisGame1() {
-        TennisGame1 game = new TennisGame1("player1", "player2");
+        TennisGame1 game = new TennisGame1(this.player1Name, this.player2Name);
         checkAllScores(game);
     }
 
     @Test
     public void checkAllScoresTennisGame2() {
-        TennisGame2 game = new TennisGame2("player1", "player2");
+        TennisGame2 game = new TennisGame2(this.player1Name, this.player2Name);
         checkAllScores(game);
     }
 
     @Test
     public void checkAllScoresTennisGame3() {
-        TennisGame3 game = new TennisGame3("player1", "player2");
+        TennisGame3 game = new TennisGame3(this.player1Name, this.player2Name);
         checkAllScores(game);
     }
 
