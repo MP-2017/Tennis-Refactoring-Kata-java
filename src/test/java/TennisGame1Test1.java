@@ -13,15 +13,15 @@ public class TennisGame1Test1 {
 
     private final String player1Name;
     private final String player2Name;
-    private final int player1Score;
-    private final int player2Score;
+    private final int player1Points;
+    private final int player2Points;
     private final String expectedScore;
 
-    public TennisGame1Test1(String player1Name, int player1Score, String player2Name, int player2Score, String expectedScore) {
+    public TennisGame1Test1(String player1Name, int player1Points, String player2Name, int player2Points, String expectedScore) {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
-        this.player1Score = player1Score;
-        this.player2Score = player2Score;
+        this.player1Points = player1Points;
+        this.player2Points = player2Points;
         this.expectedScore = expectedScore;
     }
     
@@ -72,11 +72,11 @@ public class TennisGame1Test1 {
     }
 
     public void checkAllScores(TennisGame game) {
-        int highestScore = Math.max(this.player1Score, this.player2Score);
-        for (int i = 0; i < highestScore; i++) {
-            if (i < this.player1Score)
+        int maxPoints = Math.max(this.player1Points, this.player2Points);
+        for (int i = 0; i < maxPoints; i++) {
+            if (i < this.player1Points)
                 game.wonPoint(this.player1Name);
-            if (i < this.player2Score)
+            if (i < this.player2Points)
                 game.wonPoint(this.player2Name);
         }
         assertEquals(this.expectedScore, game.getScore());
