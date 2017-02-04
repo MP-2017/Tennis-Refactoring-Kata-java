@@ -9,7 +9,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class TennisTest {
+public class TennisGame1Test1 {
 
     private final String player1Name;
     private final String player2Name;
@@ -17,7 +17,7 @@ public class TennisTest {
     private final int player2Score;
     private final String expectedScore;
 
-    public TennisTest(String player1Name, int player1Score, String player2Name, int player2Score, String expectedScore) {
+    public TennisGame1Test1(String player1Name, int player1Score, String player2Name, int player2Score, String expectedScore) {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
         this.player1Score = player1Score;
