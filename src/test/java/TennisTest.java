@@ -33,6 +33,8 @@ public class TennisTest {
                 { "Tom", 2, "Jerry", 2, "Thirty-All"},
                 { "Tom", 3, "Jerry", 3, "Deuce"},
                 { "Tom", 4, "Jerry", 4, "Deuce"},
+                { "Tom", 5, "Jerry", 5, "Deuce"},
+                { "Tom", 17, "Jerry", 17, "Deuce"},
                 
                 { "Cip", 1, "Ciop", 0, "Fifteen-Love"},
                 { "Cip", 0, "Ciop", 1, "Love-Fifteen"},
