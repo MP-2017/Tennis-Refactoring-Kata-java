@@ -5,6 +5,45 @@ import org.junit.Test;
 public class TennisGame1Test2 {
 
     @Test
+    public void givenANullPlayer1WhenCreatingANewGameThenAnExceptionIsRaised() {
+        IllegalArgumentException actualException = null; 
+        try {
+            new TennisGame1(null , "some player");
+        } catch (IllegalArgumentException e) {
+            actualException = e;
+        } finally {
+            assertNotNull(actualException);
+            assertEquals("Invalid player: null", actualException.getMessage());
+        }
+    }
+    
+    @Test
+    public void givenANullPlayer2WhenCreatingANewGameThenAnExceptionIsRaised() {
+        IllegalArgumentException actualException = null; 
+        try {
+            new TennisGame1("some player", null);
+        } catch (IllegalArgumentException e) {
+            actualException = e;
+        } finally {
+            assertNotNull(actualException);
+            assertEquals("Invalid player: null", actualException.getMessage());
+        }
+    }
+    
+    @Test
+    public void givenACoupleOfEqualPlayersWhenCreatingANewGameThenAnExceptionIsRaised() {
+        IllegalArgumentException actualException = null; 
+        try {
+            new TennisGame1("same player", "same player");
+        } catch (IllegalArgumentException e) {
+            actualException = e;
+        } finally {
+            assertNotNull(actualException);
+            assertEquals("Identical players not allowed: same player - same player", actualException.getMessage());
+        }
+    }
+    
+    @Test
     public void givenATennisGameWhenAssigningAPointToAnUnexistingPlayerThenAnExceptionIsRaised() {
         TennisGame1 gameUnderTest = new TennisGame1("first player", "second player");
         
