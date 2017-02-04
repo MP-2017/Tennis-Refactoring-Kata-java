@@ -88,16 +88,4 @@ public class TennisTest {
         checkAllScores(game);
     }
 
-    @Test
-    public void checkAllScoresTennisGame2() {
-        TennisGame2 game = new TennisGame2(this.player1Name, this.player2Name);
-        checkAllScores(game);
-    }
-
-    @Test
-    public void checkAllScoresTennisGame3() {
-        TennisGame3 game = new TennisGame3(this.player1Name, this.player2Name);
-        checkAllScores(game);
-    }
-
 }
