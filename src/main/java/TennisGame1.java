@@ -1,8 +1,12 @@
 
 public class TennisGame1 implements TennisGame {
 
-    private int score1 = 0;
-    private int score2 = 0;
+    private static enum Score {
+        LOVE, FIFTEEEN, THIRTY, FORTY, DEUCE, ADVANTAGE, WON;
+    }
+    
+    private Score score1 = Score.LOVE;
+    private Score score2 = Score.LOVE;
     private final String player1;
     private final String player2;
 
@@ -13,65 +17,85 @@ public class TennisGame1 implements TennisGame {
 
     public void wonPoint(String playerName) {
         if (player1.equals(playerName))
-            score1 += 1;
+            score1 = incrementScore(score1);
         else if (player2.equals(playerName))
-            score2 += 1;
+            score2 = incrementScore(score2);
         else 
             throw new IllegalArgumentException("Invalid player name: " + playerName);
+        setBothDeuceWhenRequired();
     }
 
+    private void setBothDeuceWhenRequired() {
+        if ( score1 == score2 && (score1 == Score.FORTY || score1 == Score.ADVANTAGE) ) {
+            score1 = Score.DEUCE;
+            score2 = Score.DEUCE;
+        }
+    }
+
+    private Score incrementScore(Score score) {
+        final Score incrementedScore;
+        if ( score == Score.LOVE ) {
+            incrementedScore = Score.FIFTEEEN;
+        } else if ( score == Score.FIFTEEEN ) {
+            incrementedScore = Score.THIRTY;
+        } else if ( score == Score.THIRTY ) {
+            incrementedScore = Score.FORTY;
+        } else if ( score == Score.FORTY ) {
+            incrementedScore = Score.WON;
+        } else if ( score == Score.DEUCE ) {
+            incrementedScore = Score.ADVANTAGE;
+        } else if ( score == Score.ADVANTAGE ) {
+            incrementedScore = Score.WON;
+        } else {
+            throw new IllegalStateException(score.name());
+        }
+        return incrementedScore;
+    }
+    
     public String getScore() {
-        String score = "";
-        int tempScore = 0;
+        String textScoreDescription = "";
         if (score1 == score2) {
             switch (score1) {
-            case 0:
-                score = "Love-All";
+            case LOVE:
+                textScoreDescription = "Love-All";
                 break;
-            case 1:
-                score = "Fifteen-All";
+            case FIFTEEEN:
+                textScoreDescription = "Fifteen-All";
                 break;
-            case 2:
-                score = "Thirty-All";
+            case THIRTY:
+                textScoreDescription = "Thirty-All";
                 break;
             default:
-                score = "Deuce";
+                textScoreDescription = "Deuce";
                 break;
             }
-        } else if (score1 >= 4 || score2 >= 4) {
-            int minusResult = score1 - score2;
-            if (minusResult == 1)
-                score = "Advantage " + player1;
-            else if (minusResult == -1)
-                score = "Advantage " + player2;
-            else if (minusResult >= 2)
-                score = "Win for " + player1;
-            else
-                score = "Win for " + player2;
+        } else if (score1 == Score.ADVANTAGE) {
+            textScoreDescription = "Advantage " + player1;
+        } else if (score2 == Score.ADVANTAGE) {
+            textScoreDescription = "Advantage " + player2;
+        } else if (score1 == Score.WON) {
+            textScoreDescription = "Win for " + player1;
+        } else if (score2 == Score.WON) {
+            textScoreDescription = "Win for " + player2;
         } else {
-            for (int i = 1; i < 3; i++) {
-                if (i == 1)
-                    tempScore = score1;
-                else {
-                    score += "-";
-                    tempScore = score2;
-                }
-                switch (tempScore) {
-                case 0:
-                    score += "Love";
-                    break;
-                case 1:
-                    score += "Fifteen";
-                    break;
-                case 2:
-                    score += "Thirty";
-                    break;
-                case 3:
-                    score += "Forty";
-                    break;
-                }
-            }
+            textScoreDescription = getScoreLabel(score1) 
+                    + "-" + getScoreLabel(score2);
         }
-        return score;
+        return textScoreDescription;
+    }
+ 
+    private String getScoreLabel(Score score) {
+        switch (score) {
+        case LOVE:
+            return "Love";
+        case FIFTEEEN:
+            return "Fifteen";
+        case THIRTY:
+            return "Thirty";
+        case FORTY:
+            return "Forty";
+        default:
+            throw new IllegalArgumentException(score.name());
+        }
     }
 }
