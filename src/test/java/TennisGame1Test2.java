@@ -15,7 +15,7 @@ public class TennisGame1Test2 {
             actualException = e;
         } finally {
             assertNotNull(actualException);
-            assertEquals("Invalid player name: third player", actualException.getMessage());
+            assertEquals("Invalid player: third player", actualException.getMessage());
         }
     }
     

@@ -15,13 +15,14 @@ public class TennisGame1 implements TennisGame {
         this.player2 = player2;
     }
 
-    public void wonPoint(String playerName) {
-        if (player1.equals(playerName)) {
+    public void wonPoint(String pointPlayer) {
+        raiseExceptionForInvalidPlayer(pointPlayer);
+        raiseExceptionForGameOver();
+
+        if (player1.equals(pointPlayer)) {
             score1 = incrementScore(score1);
-        } else if (player2.equals(playerName)) {
+        } else if (player2.equals(pointPlayer)) {
             score2 = incrementScore(score2);
-        } else { 
-            throw new IllegalArgumentException("Invalid player name: " + playerName);
         }
         setBothDeuceWhenRequired();
     }
@@ -51,6 +52,18 @@ public class TennisGame1 implements TennisGame {
             throw new IllegalStateException(score.name());
         }
         return incrementedScore;
+    }
+    
+    private void raiseExceptionForInvalidPlayer(String player) {
+        if ( !player1.equals(player) && !player2.equals(player) ) {
+            throw new IllegalArgumentException("Invalid player: " + player);
+        }
+    }
+    
+    private void raiseExceptionForGameOver() {
+        if ( score1 == Score.WON || score2 == Score.WON ) {
+            throw new IllegalStateException("Game over");
+        }
     }
     
     public String getScore() {
