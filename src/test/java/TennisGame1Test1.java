@@ -54,8 +54,8 @@ public class TennisGame1Test1 {
 
                 { "Ciop", 3, "Cip", 2, "Forty-Thirty"},
                 { "Ciop", 2, "Cip", 3, "Thirty-Forty"},
-                { "Ciop", 4, "Cip", 2, "Win for Cip"},
-                { "Ciop", 2, "Cip", 4, "Win for Ciop"},
+                { "Ciop", 4, "Cip", 2, "Win for Ciop"},
+                { "Ciop", 2, "Cip", 4, "Win for Cip"},
                 
                 { "Tom", 4, "Jerry", 3, "Advantage Tom"},
                 { "Tom", 3, "Jerry", 4, "Advantage Jerry"},
