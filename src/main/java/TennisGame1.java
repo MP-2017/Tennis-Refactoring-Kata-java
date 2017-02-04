@@ -16,12 +16,13 @@ public class TennisGame1 implements TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        if (player1.equals(playerName))
+        if (player1.equals(playerName)) {
             score1 = incrementScore(score1);
-        else if (player2.equals(playerName))
+        } else if (player2.equals(playerName)) {
             score2 = incrementScore(score2);
-        else 
+        } else { 
             throw new IllegalArgumentException("Invalid player name: " + playerName);
+        }
         setBothDeuceWhenRequired();
     }
 
