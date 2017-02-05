@@ -2,7 +2,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class TennisGame1Test2 {
+public class TennisGameBTest {
 
     @Test
     public void givenANullPlayer1WhenCreatingANewGameThenAnExceptionIsRaised() {
