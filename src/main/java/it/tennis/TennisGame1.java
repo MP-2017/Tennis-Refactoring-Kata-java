@@ -1,6 +1,6 @@
 package it.tennis;
 
-public class TennisGame1 implements TennisGame {
+public class TennisGame1 implements TennisGame, Cloneable {
 
     private static enum Score {
         LOVE, FIFTEEEN, THIRTY, FORTY, DEUCE, ADVANTAGE, WON
@@ -22,6 +22,22 @@ public class TennisGame1 implements TennisGame {
             throw new IllegalArgumentException("Invalid player: null");
         } else if ( player1.equals(player2) ) {
             throw new IllegalArgumentException("Identical players not allowed: " + player1 + " - " + player2);
+        }
+    }
+    
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        TennisGame1 clonedGame = new TennisGame1(player1, player2);
+        clonedGame.score1 = this.score1;
+        clonedGame.score2 = this.score2;
+        return clonedGame;
+    }
+    
+    TennisGame1 cloneAsTennisGame1() {
+        try {
+            return (TennisGame1) clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException();
         }
     }
 
