@@ -27,7 +27,7 @@ public class TennisGame1 implements TennisGame, Cloneable {
     
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        TennisGame1 clonedGame = new TennisGame1(player1, player2);
+        final TennisGame1 clonedGame = new TennisGame1(player1, player2);
         clonedGame.score1 = this.score1;
         clonedGame.score2 = this.score2;
         return clonedGame;
