@@ -15,7 +15,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class TennisGame1TestAllTransitions {
+public class TennisGame1AllTransitionsTest {
 
     private static Map<String, TennisGame1> gamesByScores;
     
@@ -24,7 +24,7 @@ public class TennisGame1TestAllTransitions {
     private final String nextPointPlayer;
     private final String nextExpectedScore;
 
-    public TennisGame1TestAllTransitions(String currentExpectedScore, String nextPointPlayer, String nextExpectedScore) {
+    public TennisGame1AllTransitionsTest(String currentExpectedScore, String nextPointPlayer, String nextExpectedScore) {
         this.gameUnderTest = gamesByScores.get(currentExpectedScore).cloneAsTennisGame1();
         this.currentExpectedScore = currentExpectedScore;
         this.nextPointPlayer = nextPointPlayer;
